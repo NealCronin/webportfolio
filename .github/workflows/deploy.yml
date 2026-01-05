@@ -2,7 +2,7 @@ name: Deploy to PythonAnywhere
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # Automatically deploys when you push to the main branch
 
 jobs:
   deploy:
@@ -12,17 +12,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy and Reload via SSH
+      - name: Execute Remote Commands via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ssh.pythonanywhere.com
           username: ${{ secrets.PA_USERNAME }}
-          password: ${{ secrets.YOUR_PA_PASSWORD_SECRET_NAME }} 
+          password: ${{ secrets.PA_PASSWORD }} # This uses your login password
           script: |
+            # 1. Navigate to project folder
             cd /home/${{ secrets.PA_USERNAME }}/webportfolio
+            
+            # 2. Force local files to match GitHub exactly
             git fetch origin main
             git reset --hard origin/main
+            
+            # 3. Activate VirtualEnv and run Django tasks
             source /home/${{ secrets.PA_USERNAME }}/.virtualenvs/webportfolio/bin/activate
             python manage.py migrate
             python manage.py collectstatic --noinput
+            
+            # 4. Reload the Web App (the "touch" method)
             touch /var/www/${{ secrets.PA_DOMAIN }}_wsgi.py
+
+      - name: API Reload (Backup Method)
+        uses: jensvog/pythonanywhere-webapp-reload-action@v1
+        with:
+          host: 'www.pythonanywhere.com'
+          username: ${{ secrets.PA_USERNAME }}
+          api-token: ${{ secrets.PA_TOKEN }} # This is where the Token is used
+          domain-name: ${{ secrets.PA_DOMAIN }}
