@@ -22,12 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-# TEMPORARY: This will tell us if it worked in the terminal
-print(f"--- VALIDATION ---")
-print(f"Searching for .env at: {os.path.join(BASE_DIR, '.env')}")
-print(f"API Key Loaded: {'YES' if os.getenv('CLOUDINARY_API_KEY') else 'NO'}")
-print(f"------------------")
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
