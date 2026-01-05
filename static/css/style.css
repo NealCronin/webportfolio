@@ -275,7 +275,7 @@ nav {
 }
 
 .header-text-side { flex: 1.5; text-align: left; }
-.header-image-side { flex: 0.8; display: flex; justify-content: flex-end; }
+.header-image-side { flex: 0.8; display: flex; justify-content: flex-end; position: relative; z-index: 1; }
 .header-image-side img { 
     width: 100%; max-width: 320px; height: auto; border-radius: 12px; box-shadow: var(--shadow); 
 }
@@ -296,25 +296,24 @@ nav {
    7. PROJECT DETAIL IMAGE ZOOM (Header Image)
    ========================================================================== */
 .header-image-side {
-    overflow: hidden; /* Contains zoom within the frame */
-    border-radius: 12px;
+    overflow: visible; /* Removed hidden to allow image to pop out */
     cursor: zoom-in;
-    transition: box-shadow 0.3s ease;
+    transition: z-index 0s;
 }
 
 .header-image-side img {
-    /* Smooth cubic-bezier transition for high-end feel at 2x zoom */
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease;
     display: block;
     width: 100%;
 }
 
-.header-image-side:hover img {
-    transform: scale(2.0); /* Increased magnification to 2x */
+.header-image-side:hover {
+    z-index: 20; /* Pops over the text title */
 }
 
-.header-image-side:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+.header-image-side:hover img {
+    transform: scale(2.0); /* Matches the gallery 2x zoom */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
 }
 
 /* ==========================================================================
@@ -330,31 +329,35 @@ nav {
 
 .gallery-item {
     position: relative;
-    /* transition z-index 0s ensures the item pops to front instantly */
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s;
     z-index: 1;
     cursor: zoom-in;
+    display: flex;       /* Centers the natural image in the grid slot */
+    justify-content: center;
+    align-items: center;
 }
 
 .gallery-item:hover {
-    transform: scale(2.0); /* Increased magnification to 2x */
-    z-index: 20; /* High z-index ensures overlap over surrounding content */
+    transform: scale(2.0); 
+    z-index: 20; 
 }
 
 .gallery-item img, 
 .gallery-item video, 
 .gallery-item iframe {
-    width: 100% !important;
-    height: 300px !important;
-    object-fit: contain;
-    background: #f8f8f8;
+    width: auto !important;     /* Stop forcing width to fill a box */
+    max-width: 100% !important; /* Prevent it from being larger than the grid slot */
+    height: auto !important;    /* Stop forcing a 300px height */
+    max-height: 350px !important; /* Keeps a reasonable uniform size limit */
+    object-fit: initial;        /* Respects the natural borders of the file */
+    background: transparent;    /* Removed the #f8f8f8 gray box */
     border-radius: 12px;
     box-shadow: var(--shadow);
     display: block;
 }
 
-/* Dark mode adjustment for gallery backgrounds */
+/* Ensure shadow disappears if image is transparent, or keep it for the model outline */
 body.dark-mode .gallery-item img,
 body.dark-mode .gallery-item video {
-    background: #1a1a1a;
+    background: transparent;    /* Removed dark gray box */
 }
