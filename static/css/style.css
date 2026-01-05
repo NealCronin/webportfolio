@@ -252,6 +252,33 @@ nav {
 @media (max-width: 900px) { 
     .project-masonry { grid-template-columns: repeat(2, 1fr); }
     .split-layout { flex-direction: column; text-align: center; gap: 2rem; }
+    
+    /* Project Detail Mobile Order: Image First */
+    .blog-header-split { 
+        flex-direction: column-reverse; 
+        text-align: center; 
+        gap: 1.5rem;
+    }
+
+    .header-text-side { text-align: center; }
+    .header-image-side { justify-content: center; width: 100%; }
+    
+    .header-image-side img {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    /* Disable Zoom on Mobile */
+    .header-image-side:hover img,
+    .gallery-item:hover {
+        transform: none !important;
+        z-index: 1 !important;
+    }
+
+    .header-image-side, .gallery-item {
+        cursor: default !important;
+    }
+
     .project-card.is-focused .card-overlay { opacity: 1; }
     .about-photo img { max-width: 450px; }
     .about-text { text-align: center; }
@@ -296,7 +323,7 @@ nav {
    7. PROJECT DETAIL IMAGE ZOOM (Header Image)
    ========================================================================== */
 .header-image-side {
-    overflow: visible; /* Removed hidden to allow image to pop out */
+    overflow: visible; 
     cursor: zoom-in;
     transition: z-index 0s;
 }
@@ -307,13 +334,16 @@ nav {
     width: 100%;
 }
 
-.header-image-side:hover {
-    z-index: 20; /* Pops over the text title */
-}
+/* Desktop Only Zoom */
+@media (hover: hover) {
+    .header-image-side:hover {
+        z-index: 20; 
+    }
 
-.header-image-side:hover img {
-    transform: scale(2.0); /* Matches the gallery 2x zoom */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    .header-image-side:hover img {
+        transform: scale(2.0); 
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    }
 }
 
 /* ==========================================================================
@@ -332,32 +362,34 @@ nav {
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s;
     z-index: 1;
     cursor: zoom-in;
-    display: flex;       /* Centers the natural image in the grid slot */
+    display: flex;       
     justify-content: center;
     align-items: center;
 }
 
-.gallery-item:hover {
-    transform: scale(2.0); 
-    z-index: 20; 
+/* Desktop Only Zoom */
+@media (hover: hover) {
+    .gallery-item:hover {
+        transform: scale(2.0); 
+        z-index: 20; 
+    }
 }
 
 .gallery-item img, 
 .gallery-item video, 
 .gallery-item iframe {
-    width: auto !important;     /* Stop forcing width to fill a box */
-    max-width: 100% !important; /* Prevent it from being larger than the grid slot */
-    height: auto !important;    /* Stop forcing a 300px height */
-    max-height: 350px !important; /* Keeps a reasonable uniform size limit */
-    object-fit: initial;        /* Respects the natural borders of the file */
-    background: transparent;    /* Removed the #f8f8f8 gray box */
+    width: auto !important;     
+    max-width: 100% !important; 
+    height: auto !important;    
+    max-height: 350px !important; 
+    object-fit: initial;        
+    background: transparent;    
     border-radius: 12px;
     box-shadow: var(--shadow);
     display: block;
 }
 
-/* Ensure shadow disappears if image is transparent, or keep it for the model outline */
 body.dark-mode .gallery-item img,
 body.dark-mode .gallery-item video {
-    background: transparent;    /* Removed dark gray box */
+    background: transparent;    
 }
