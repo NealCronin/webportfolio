@@ -1,15 +1,6 @@
-# Local environment variables
 .env
-
-# Database (Keep your local data on your Mac)
 db.sqlite3
-
-# Python folders
 __pycache__/
 *.py[cod]
-
-# Media files (Since you are using Cloudinary, you don't need local uploads)
 media/
-
-# OS specific files
 .DS_Store
