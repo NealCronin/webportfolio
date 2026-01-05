@@ -2,42 +2,48 @@ name: Deploy to PythonAnywhere
 
 on:
   push:
-    branches: [ main ]  # Automatically deploys when you push to the main branch
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Execute Remote Commands via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ssh.pythonanywhere.com
           username: ${{ secrets.PA_USERNAME }}
-          password: ${{ secrets.PA_PASSWORD }} # This uses your login password
+          password: ${{ secrets.PA_PASSWORD }}
+          # Increase timeouts to prevent status 254 connection drops
+          timeout: 60s
+          command_timeout: 10m 
           script: |
-            # 1. Navigate to project folder
-            cd /home/${{ secrets.PA_USERNAME }}/webportfolio
+            # 1. Enter project directory
+            cd /home/${{ secrets.PA_USERNAME }}/webportfolio || exit 1
             
-            # 2. Force local files to match GitHub exactly
+            # 2. Fetch and reset (Clean state)
             git fetch origin main
             git reset --hard origin/main
             
-            # 3. Activate VirtualEnv and run Django tasks
-            source /home/${{ secrets.PA_USERNAME }}/.virtualenvs/webportfolio/bin/activate
-            python manage.py migrate
-            python manage.py collectstatic --noinput
+            # 3. Setup Environment
+            # Use the absolute path to ensure source works
+            export VENV_PATH="/home/${{ secrets.PA_USERNAME }}/.virtualenvs/webportfolio/bin/activate"
+            if [ -f "$VENV_PATH" ]; then
+                source "$VENV_PATH"
+            else
+                echo "Virtualenv not found at $VENV_PATH"
+                exit 1
+            fi
             
-            # 4. Reload the Web App (the "touch" method)
+            # 4. Django Tasks (split to identify which one fails)
+            echo "Running migrations..."
+            python manage.py migrate --noinput
+            
+            echo "Collecting static files..."
+            # Added --no-post-process to save memory and prevent exit 254
+            python manage.py collectstatic --noinput --no-post-process
+            
+            # 5. Reload
+            echo "Reloading webapp..."
             touch /var/www/${{ secrets.PA_DOMAIN }}_wsgi.py
-
-      - name: API Reload (Backup Method)
-        uses: jensvog/pythonanywhere-webapp-reload-action@v1
-        with:
-          host: 'www.pythonanywhere.com'
-          username: ${{ secrets.PA_USERNAME }}
-          api-token: ${{ secrets.PA_TOKEN }} # This is where the Token is used
-          domain-name: ${{ secrets.PA_DOMAIN }}
