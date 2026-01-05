@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="blog-project-container">
+    
+    <header class="blog-header-split">
+        <div class="header-text-side">
+            <h1>{{ project.title }}</h1>
+            
+            <div class="blog-lead">
+                {{ project.description }}
+            </div>
+        </div>
+
+        <div class="header-image-side">
+            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+        </div>
+    </header>
+
+    <div class="blog-text">
+    {% if project.body %}
+        {{ project.body|safe|linebreaks }}
+    {% endif %}
+</div>
+
+    <footer class="blog-footer">
+        <a href="{% url 'home' %}" class="theme-btn">← Back to Portfolio</a>
+    </footer>
+
+</article>
+{% endblock %}

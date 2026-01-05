@@ -60,5 +60,28 @@
             localStorage.setItem('theme', theme);
         });
     </script>
+    <script>
+    // Create the observer
+    const observerOptions = {
+        root: null, // use the viewport
+        rootMargin: '-20% 0px -20% 0px', // trigger when card is in the middle 60% of screen
+        threshold: 0.7 // card must be 70% visible to trigger
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-focused');
+            } else {
+                entry.target.classList.remove('is-focused');
+            }
+        });
+    }, observerOptions);
+
+    // Target all project cards
+    document.querySelectorAll('.project-card').forEach(card => {
+        observer.observe(card);
+    });
+</script>
 </body>
 </html>

@@ -8,6 +8,7 @@
     --nav-link-color: #374151;
     --active-color: #e63946;
     --overlay-bg: rgba(255, 255, 255, 0.2);
+    --nav-border: rgba(0, 0, 0, 0.05);
 }
 
 body.dark-mode {
@@ -17,10 +18,11 @@ body.dark-mode {
     --nav-link-color: #9ca3af;
     --active-color: #ff8c00;
     --overlay-bg: rgba(0, 0, 0, 0.4);
+    --nav-border: rgba(255, 255, 255, 0.1);
 }
 
 /* ==========================================================================
-   1. GLOBAL STYLES
+   1. GLOBAL STYLES & ANIMATIONS
    ========================================================================== */
 body {
     margin: 0;
@@ -217,7 +219,7 @@ nav {
 }
 
 /* ==========================================================================
-   5. RESUME & ABOUT PAGE
+   4. RESUME & ABOUT PAGE
    ========================================================================== */
 .resume-container, .about-container {
     max-width: 1100px;
@@ -295,56 +297,179 @@ nav {
 .resume-frame embed { width: 100%; height: 85vh; }
 
 /* ==========================================================================
-   6. RESPONSIVE DESIGN (MOBILE FIXES)
+   5. RESPONSIVE DESIGN (TABLET/MOBILE FOCUS)
    ========================================================================== */
 @media (max-width: 900px) { 
     .project-masonry { column-count: 2; }
+    
+    .card-overlay {
+        opacity: 0;
+        background: rgba(0, 0, 0, 0.5); 
+        position: absolute; 
+        height: 100%;
+        transition: opacity 0.4s ease;
+    }
+
+    .overlay-content {
+        opacity: 0;
+        color: #ffffff;
+        transition: opacity 0.4s ease;
+    }
+
+    .project-card.is-focused img {
+        transform: scale(1.03);
+        opacity: 0.35;
+    }
+
+    .project-card.is-focused .card-overlay,
+    .project-card.is-focused .overlay-content {
+        opacity: 1;
+    }
+
     .split-layout {
         flex-direction: column;
         text-align: center;
         gap: 2rem;
     }
-    .about-text {
-        text-align: center;
-    }
-
-    .card-overlay {
-        opacity: 1;
-        background: rgba(0, 0, 0, 0.5); 
-        position: relative;
-        height: auto;
-        padding: 15px;
-    }
-
-    .overlay-content {
-        opacity: 1;
-        color: #ffffff; 
-    }
-
-    .project-card img {
-        opacity: 1; 
-    }
 }
 
 @media (max-width: 600px) {
     nav { 
-        flex-direction: column; /* Stack elements vertically */
-        gap: 1rem;
-        padding: 1rem 0;
-        background-attachment: scroll; /* Fix for mobile flickering */
+        flex-direction: row; 
+        justify-content: space-between;
+        padding: 0.8rem 3%;
+        background: var(--bg-gradient);
+        background-attachment: scroll;
+        background-size: 100% 100vh;
+    }
+
+    .nav-logo a { font-size: 1.1rem; white-space: nowrap; }
+    .theme-btn { padding: 4px 8px; font-size: 0.7rem; }
+    .nav-links { gap: 0.6rem; }
+    .nav-links a { font-size: 0.8rem; }
+
+    .project-masonry { column-count: 1; }
+}
+
+/* ==========================================================================
+   6. SCROLL ADJUSTMENTS
+   ========================================================================== */
+.scroll-spacer {
+    display: none; 
+}
+
+@media (max-width: 900px) {
+    .scroll-spacer {
+        display: block;
+        height: 50vh; 
+        width: 100%;
+        pointer-events: none; 
+    }
+}
+
+/* ==========================================================================
+   7. BLOG-STYLE PROJECT DETAIL
+   ========================================================================== */
+.blog-project-container {
+    max-width: 900px; 
+    margin: 5rem auto;
+    padding: 0 20px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.blog-header-split {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-bottom: 5rem;
+}
+
+.header-text-side {
+    flex: 1.5; 
+    text-align: left;
+}
+
+.header-image-side {
+    flex: 1; 
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-image-side img {
+    width: 100%;
+    max-width: 320px; 
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.header-text-side h1 {
+    font-size: 3.5rem;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.1;
+    color: var(--heading-color);
+}
+
+.blog-lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    font-weight: 500;
+    opacity: 0.9;
+    border-left: 3px solid var(--active-color);
+    padding-left: 1.2rem;
+}
+
+.blog-text {
+    font-size: 1.2rem;
+    line-height: 1.9;
+    color: var(--text-color);
+    max-width: 750px; 
+    margin: 0 auto;
+}
+
+.blog-text p {
+    margin-bottom: 2rem;
+}
+
+.placeholder-text {
+    font-style: italic;
+    opacity: 0.6;
+}
+
+.blog-footer {
+    margin-top: 4rem;
+    padding-top: 0;   
+    border-top: none; 
+    text-align: center;
+}
+
+/* Mobile Blog Adjustments */
+@media (max-width: 768px) {
+    .blog-header-split {
+        flex-direction: column-reverse; 
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .header-text-side {
         text-align: center;
     }
 
-    .nav-logo, .nav-center, .nav-links {
-        flex: none;
-        width: 100%;
+    .blog-lead {
+        border-left: none;
+        border-top: 3px solid var(--active-color);
+        padding-left: 0;
+        padding-top: 1rem;
+    }
+
+    .header-text-side h1 {
+        font-size: 2.5rem;
+    }
+
+    .header-image-side {
         justify-content: center;
     }
 
-    .nav-links {
-        gap: 1.5rem;
-        padding: 0.5rem 0;
-    }
-
-    .project-masonry { column-count: 1; }
+    .blog-project-container { margin: 2rem auto; }
 }
