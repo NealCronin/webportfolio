@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',  # MOVED UP: Must be above cloudinary_storage for local collection
+    'django.contrib.staticfiles',
     'cloudinary_storage',         
     'cloudinary',
     'pages',
