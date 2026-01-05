@@ -7,7 +7,6 @@
     <title>Neal Cronin | Portfolio</title>
     
     <style>
-        /* Initial styling to prevent layout shift */
         nav a, .nav-links a { color: var(--text-color, #444); text-decoration: none; }
     </style>
 
@@ -40,13 +39,11 @@
         const btn = document.getElementById('theme-toggle');
         const body = document.getElementById('theme-body');
 
-        // FORCE START IN LIGHT MODE if no preference is saved
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'dark') {
             body.classList.add('dark-mode');
             btn.textContent = 'Light Mode';
         } else {
-            // Defaulting to light mode explicitly
             body.classList.remove('dark-mode');
             btn.textContent = 'Dark Mode';
         }
