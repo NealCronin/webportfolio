@@ -17,11 +17,11 @@
         </div>
     </header>
 
-    <div class="blog-text">
-    {% if project.body %}
-        {{ project.body|safe|linebreaks }}
-    {% endif %}
-</div>
+    <div class="blog-text custom-content">
+        {% if project.body %}
+            {{ project.body|safe }}
+        {% endif %}
+    </div>
 
     <footer class="blog-footer">
         <a href="{% url 'home' %}" class="theme-btn">← Back to Portfolio</a>

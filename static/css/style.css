@@ -315,3 +315,12 @@ nav {
     .header-image-side { justify-content: center; }
     .blog-lead { border-left: none; border-top: 3px solid var(--active-color); padding-top: 1rem; padding-left: 0; }
 }
+
+/* RESET FOR ADMIN CONTENT */
+.custom-content img {
+    width: auto; /* Overrides the 100% width rule */
+    max-width: 100%; 
+    height: auto;
+    display: inline-block; /* Allows images to sit side-by-side */
+    margin: 10px 0;
+}
