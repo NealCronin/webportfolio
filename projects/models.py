@@ -6,7 +6,7 @@ class Project(models.Model):
     description = models.TextField()
     order = models.PositiveIntegerField(default=100)
 
-    image = CloudinaryField('image', folder='projects/', null=True, blank=True)
+    image = CloudinaryField('image', default='https://res.cloudinary.com/dmo5atv6g/image/upload/v1767583908/WIP.png', folder="/projects/")
 
     class Meta:
         ordering = ['order', 'title']

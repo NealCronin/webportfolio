@@ -1,6 +1,29 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>About Me</h1>
-    <p>Write your bio here! This is where you talk about your journey and skills.</p>
+    <header class="about-header">
+        <h1>About Me</h1>
+    </header>
+
+    <div class="about-container split-layout">
+        <div class="about-photo">
+            <img src="{% static 'images/profile.jpg' %}" alt="Neal Cronin">
+        </div>
+
+        <div class="about-text">
+            <h2>Hi, I'm Neal</h2>
+            <p>
+                I am a [Your Profession/Student Status] passionate about [Your Interests]. 
+                I focus on creating [What you build/do] and I am always looking for new challenges.
+            </p>
+            <p>
+                When I'm not [Work/Study related], you can find me [Hobby 1] or [Hobby 2]. 
+                I believe in [Personal Philosophy/Work Ethic].
+            </p>
+            <div class="about-cta">
+                <a href="mailto:john.neal.cronin@gmail.com" class="theme-btn">Get In Touch</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

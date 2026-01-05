@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="resume-container">
+    <div class="resume-download-bar">
+        <a href="{% static 'docs/Cronin_Neal.pdf' %}" class="download-link" download>
+            <span class="icon">↓</span> Quick Download
+        </a>
+    </div>
+
+    <div class="resume-frame">
+        <embed 
+            src="{% static 'docs/Cronin_Neal.pdf' %}" 
+            type="application/pdf"
+        />
+    </div>
+</div>
+{% endblock %}

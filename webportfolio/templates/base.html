@@ -5,17 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neal Cronin | Portfolio</title>
+    
+    <style>
+        /* Initial styling to prevent layout shift */
+        nav a, .nav-links a { color: var(--text-color, #444); text-decoration: none; }
+    </style>
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
+<body id="theme-body">
 
     <nav>
         <div class="nav-logo">
-            <a href="{% url 'home' %}">Neal Cronin</a>
+            <a href="/">Neal Cronin</a>
         </div>
+
+        <div class="nav-center">
+            <button id="theme-toggle" class="theme-btn">Dark Mode</button>
+        </div>
+
         <ul class="nav-links">
-            <li><a href="{% url 'home' %}#projects">Projects</a></li>
-            <li><a href="{% url 'about' %}">Me</a></li>
+            <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Projects</a></li>
+            <li><a href="{% url 'about' %}" class="{% if request.path == '/about/' %}active{% endif %}">Me</a></li>
+            <li><a href="{% url 'resume' %}" class="btn-resume {% if request.path == '/resume/' %}active{% endif %}">Resume</a></li>
         </ul>
     </nav>
 
@@ -24,5 +36,32 @@
         {% endblock %}
     </main>
 
+    <script>
+        const btn = document.getElementById('theme-toggle');
+        const body = document.getElementById('theme-body');
+
+        // FORCE START IN LIGHT MODE if no preference is saved
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            btn.textContent = 'Light Mode';
+        } else {
+            // Defaulting to light mode explicitly
+            body.classList.remove('dark-mode');
+            btn.textContent = 'Dark Mode';
+        }
+
+        btn.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            let theme = 'light';
+            if (body.classList.contains('dark-mode')) {
+                theme = 'dark';
+                btn.textContent = 'Light Mode';
+            } else {
+                btn.textContent = 'Dark Mode';
+            }
+            localStorage.setItem('theme', theme);
+        });
+    </script>
 </body>
 </html>
