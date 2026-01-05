@@ -291,3 +291,68 @@ nav {
     display: inline-block; 
     margin: 10px 0;
 }
+
+/* ==========================================================================
+   7. PROJECT DETAIL IMAGE ZOOM
+   ========================================================================== */
+.header-image-side {
+    overflow: hidden; /* Contains zoom within the frame */
+    border-radius: 12px;
+    cursor: zoom-in;
+    transition: box-shadow 0.3s ease;
+}
+
+.header-image-side img {
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    display: block;
+    width: 100%;
+}
+
+.header-image-side:hover img {
+    transform: scale(1.15); /* Adjust scale for zoom depth */
+}
+
+.header-image-side:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   8. UNIVERSAL PROJECT GALLERY (Images, GIFs, Videos)
+   ========================================================================== */
+.project-gallery {
+    display: grid;
+    /* This creates a responsive grid: items will be at least 250px wide */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+    width: 100%;
+}
+
+.gallery-item {
+    position: relative;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05); /* Subtle zoom so it doesn't overlap text too much */
+    z-index: 10;
+}
+
+.gallery-item img, 
+.gallery-item video, 
+.gallery-item iframe {
+    width: 100% !important;
+    height: 300px !important; /* Uniform height for the row */
+    object-fit: contain;      /* Keeps technical CAD models from cropping */
+    background: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    display: block;
+}
+
+/* Dark mode adjustment for the gallery background */
+body.dark-mode .gallery-item img,
+body.dark-mode .gallery-item video {
+    background: #1a1a1a;
+}
