@@ -2,6 +2,7 @@
    0. THEME VARIABLES
    ========================================================================== */
 :root {
+    /* Aggressive Light Gradient */
     --bg-gradient: linear-gradient(180deg, #ffffff 0%, #9ca3af 100%);
     --text-color: #1f2937;
     --heading-color: #000000;
@@ -11,6 +12,7 @@
 }
 
 body.dark-mode {
+    /* Aggressive Dark Gradient */
     --bg-gradient: linear-gradient(180deg, #000000 0%, #1e293b 100%);
     --text-color: #f3f4f6;
     --heading-color: #ffffff;
@@ -67,11 +69,16 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+    
+    /* THE FIX: Solid background that aligns with the body's fixed background */
     background: var(--bg-gradient);
     background-attachment: fixed;
     background-size: cover;
+    
+    /* Ensures no transparency and no shadows/borders as requested */
     border-bottom: none;
     box-shadow: none;
+    
     transition: background 0.5s ease;
 }
 
@@ -101,8 +108,6 @@ nav {
     font-size: 0.85rem;
     font-weight: 600;
     transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
 }
 
 .theme-btn:hover {
@@ -311,22 +316,21 @@ nav {
         text-align: center;
     }
 
-    /* Mobile: Always show titles/descriptions as user scrolls */
     .card-overlay {
         opacity: 1;
-        background: rgba(0, 0, 0, 0.5); /* Dim image to ensure text is readable */
-        position: relative; /* Moves text below the image or keeps it as a permanent caption */
+        background: rgba(0, 0, 0, 0.5); 
+        position: relative;
         height: auto;
         padding: 15px;
     }
 
     .overlay-content {
         opacity: 1;
-        color: #ffffff; /* Forced white for contrast on mobile overlay */
+        color: #ffffff; 
     }
 
     .project-card img {
-        opacity: 1; /* Keep image clear, let the overlay below handle text */
+        opacity: 1; 
     }
 }
 
@@ -334,6 +338,7 @@ nav {
     nav { 
         flex-direction: column; 
         gap: 1.5rem;
+        /* Mobile header background resets to standard scroll to prevent clipping issues on small screens */
         background-attachment: scroll; 
     }
     .nav-links { justify-content: center; width: 100%; gap: 1.5rem; }
