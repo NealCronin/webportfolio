@@ -73,6 +73,8 @@ nav {
     z-index: 1000;
     background-color: var(--bg-color);
     border-bottom: 1px solid var(--nav-border);
+    /* Fade code added here */
+    transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
 .nav-logo, .nav-links, .nav-center { flex: 1; }
@@ -82,6 +84,8 @@ nav {
     font-weight: bold;
     text-decoration: none;
     color: var(--heading-color);
+    /* Fade code added here */
+    transition: color 0.3s ease;
 }
 
 .nav-center { display: flex; justify-content: center; }
@@ -105,9 +109,10 @@ nav {
     border-radius: 50px;
     border: 1px solid var(--nav-link-color);
     display: inline-block;
-    transition: all 0.3s ease;
     background: transparent;
     cursor: pointer;
+    /* Updated transition to include color/border fade while keeping your existing hover logic */
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-links a:hover, .theme-btn:hover {
