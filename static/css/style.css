@@ -7,10 +7,11 @@
     --heading-color: #000000;
     --nav-link-color: #374151;
     --active-color: #e63946;
-    --overlay-bg: rgba(255, 255, 255, 0.9); /* More opaque for readability */
+    --overlay-bg: rgba(255, 255, 255, 0.95); 
     --nav-border: rgba(0, 0, 0, 0.1);
     --card-bg: #ffffff; 
     --card-border: rgba(0, 0, 0, 0.08);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 body.dark-mode {
@@ -19,10 +20,11 @@ body.dark-mode {
     --heading-color: #ffffff;
     --nav-link-color: #9ca3af;
     --active-color: #ff8c00;
-    --overlay-bg: rgba(18, 18, 18, 0.9); 
+    --overlay-bg: rgba(18, 18, 18, 0.95); 
     --nav-border: rgba(255, 255, 255, 0.1);
     --card-bg: #1e1e1e; 
     --card-border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 /* ==========================================================================
@@ -142,7 +144,8 @@ nav {
     box-sizing: border-box;
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-decoration: none; /* For the link anchor */
+    text-decoration: none;
+    box-shadow: var(--shadow); /* Added Shadow */
 }
 
 .card-image-wrapper {
@@ -188,7 +191,11 @@ nav {
 
 /* Hover States */
 @media (min-width: 901px) {
-    .project-card:hover { transform: translateY(-5px); border-color: var(--heading-color); }
+    .project-card:hover { 
+        transform: translateY(-8px); 
+        border-color: var(--heading-color);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); 
+    }
     .card-image-wrapper:hover img { transform: scale(1.05); }
     .card-image-wrapper:hover .card-overlay { opacity: 1; }
 }
@@ -206,7 +213,7 @@ nav {
     max-width: 500px;
     height: auto;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow);
 }
 
 .about-text { flex: 1.5; text-align: left; }
@@ -270,7 +277,7 @@ nav {
 .header-text-side { flex: 1.5; text-align: left; }
 .header-image-side { flex: 0.8; display: flex; justify-content: flex-end; }
 .header-image-side img { 
-    width: 100%; max-width: 320px; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+    width: 100%; max-width: 320px; height: auto; border-radius: 12px; box-shadow: var(--shadow); 
 }
 
 .blog-lead { font-size: 1.25rem; border-left: 3px solid var(--active-color); padding-left: 1.5rem; }
