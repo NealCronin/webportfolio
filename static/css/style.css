@@ -1,27 +1,27 @@
 /* ==========================================================================
-   0. THEME VARIABLES (Starts in Light Mode)
+   0. THEME VARIABLES 
    ========================================================================== */
 :root {
-    --bg-gradient: linear-gradient(180deg, #ffffff 0%, #9ca3af 100%);
+    --bg-color: #ffffff; 
     --text-color: #1f2937;
     --heading-color: #000000;
     --nav-link-color: #374151;
     --active-color: #e63946;
-    --overlay-bg: rgba(255, 255, 255, 0.4);
+    --overlay-bg: rgba(255, 255, 255, 0.9); /* More opaque for readability */
     --nav-border: rgba(0, 0, 0, 0.1);
-    --card-bg: rgba(255, 255, 255, 0.5); 
+    --card-bg: #ffffff; 
     --card-border: rgba(0, 0, 0, 0.08);
 }
 
 body.dark-mode {
-    --bg-gradient: linear-gradient(180deg, #000000 0%, #1e293b 100%);
+    --bg-color: #121212; 
     --text-color: #f3f4f6;
     --heading-color: #ffffff;
     --nav-link-color: #9ca3af;
     --active-color: #ff8c00;
-    --overlay-bg: rgba(0, 0, 0, 0.6);
+    --overlay-bg: rgba(18, 18, 18, 0.9); 
     --nav-border: rgba(255, 255, 255, 0.1);
-    --card-bg: rgba(255, 255, 255, 0.05); 
+    --card-bg: #1e1e1e; 
     --card-border: rgba(255, 255, 255, 0.1);
 }
 
@@ -31,13 +31,11 @@ body.dark-mode {
 body {
     margin: 0;
     padding: 0;
-    background: var(--bg-gradient);
-    background-attachment: fixed;
-    background-size: cover;
+    background-color: var(--bg-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-color);
     min-height: 100vh;
-    transition: color 0.3s ease, background 0.5s ease;
+    transition: color 0.3s ease, background-color 0.5s ease;
 }
 
 .container { padding: 2rem 5%; }
@@ -61,7 +59,7 @@ body {
 }
 
 /* ==========================================================================
-   2. NAVIGATION & OVAL PILL BUTTONS
+   2. NAVIGATION
    ========================================================================== */
 nav {
     display: flex;
@@ -71,9 +69,7 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--bg-gradient);
-    background-attachment: fixed;
-    background-size: cover;
+    background-color: var(--bg-color);
     border-bottom: 1px solid var(--nav-border);
 }
 
@@ -124,7 +120,7 @@ nav {
 }
 
 /* ==========================================================================
-   3. PROJECT GRID
+   3. PROJECT GRID & HOVER (FLAVOR TEXT)
    ========================================================================== */
 .project-masonry {
     display: grid;
@@ -146,6 +142,7 @@ nav {
     box-sizing: border-box;
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none; /* For the link anchor */
 }
 
 .card-image-wrapper {
@@ -171,17 +168,25 @@ nav {
     text-align: center;
 }
 
+/* Overlay for Flavor Text */
 .card-overlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
     background: var(--overlay-bg); 
     display: flex; align-items: center; justify-content: center;
-    text-align: center; padding: 20px; box-sizing: border-box;
+    text-align: center; padding: 15px; box-sizing: border-box;
     opacity: 0; transition: opacity 0.4s ease; z-index: 2;
 }
 
-.overlay-content p { color: var(--heading-color); font-weight: 500; margin: 0; }
+.overlay-content p { 
+    color: var(--heading-color); 
+    font-weight: 500; 
+    margin: 0; 
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
 
+/* Hover States */
 @media (min-width: 901px) {
     .project-card:hover { transform: translateY(-5px); border-color: var(--heading-color); }
     .card-image-wrapper:hover img { transform: scale(1.05); }
@@ -191,21 +196,11 @@ nav {
 /* ==========================================================================
    4. RESUME & ABOUT PAGE
    ========================================================================== */
-.resume-container, .about-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
-}
+.resume-container, .about-container { max-width: 1100px; margin: 0 auto; padding: 20px; }
 
-.split-layout { 
-    display: flex; 
-    flex-direction: row; 
-    align-items: center; 
-    gap: 4rem; 
-}
+.split-layout { display: flex; flex-direction: row; align-items: center; gap: 4rem; }
 
 .about-photo { flex: 1; display: flex; justify-content: center; }
-
 .about-photo img {
     width: 100%;
     max-width: 500px;
@@ -218,12 +213,7 @@ nav {
 .about-text h2 { font-size: 2rem; margin-bottom: 1.5rem; color: var(--heading-color); }
 .about-cta { display: flex; gap: 1rem; margin-top: 2rem; }
 
-.resume-download-bar {
-    display: flex;
-    justify-content: center; 
-    padding: 2rem 0;        
-    width: 100%;
-}
+.resume-download-bar { display: flex; justify-content: center; padding: 2rem 0; width: 100%; }
 
 .download-link {
     text-decoration: none;
@@ -244,12 +234,8 @@ nav {
 }
 
 .resume-frame {
-    width: 100%;
-    height: 85vh; 
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    background-color: #f9f9f9;
+    width: 100%; height: 85vh; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); background-color: #f9f9f9;
 }
 .resume-frame embed { width: 100%; height: 100%; display: block; }
 
@@ -259,10 +245,7 @@ nav {
 @media (max-width: 900px) { 
     .project-masonry { grid-template-columns: repeat(2, 1fr); }
     .split-layout { flex-direction: column; text-align: center; gap: 2rem; }
-    
-    .project-card.is-focused .card-overlay { opacity: 1; background: var(--overlay-bg); }
-    .project-card.is-focused img { transform: scale(1.05); }
-
+    .project-card.is-focused .card-overlay { opacity: 1; }
     .about-photo img { max-width: 450px; }
     .about-text { text-align: center; }
 }
@@ -273,54 +256,31 @@ nav {
     .nav-links a, .theme-btn { padding: 6px 12px; font-size: 0.75rem; }
     .about-photo img { max-width: 90%; }
     .about-cta { flex-direction: column; align-items: center; width: 100%; }
-    .resume-frame { height: 70vh; }
 }
 
 /* ==========================================================================
-   6. PROJECT DETAIL (UPDATED IMAGE SIZE)
+   6. PROJECT DETAIL
    ========================================================================== */
 .blog-project-container { max-width: 1000px; margin: 4rem auto; padding: 0 20px; }
 
 .blog-header-split { 
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: space-between; 
-    align-items: center; /* Centers items vertically in the split */
-    gap: 3rem; 
-    margin-bottom: 3rem; 
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 3rem; margin-bottom: 3rem; 
 }
 
 .header-text-side { flex: 1.5; text-align: left; }
-
-.header-image-side { 
-    flex: 0.8; /* Reduced flex to make the side smaller */
-    display: flex; 
-    justify-content: flex-end; 
-}
-
+.header-image-side { flex: 0.8; display: flex; justify-content: flex-end; }
 .header-image-side img { 
-    width: 100%; 
-    max-width: 320px; /* Reduced from 450px to make the image smaller */
-    height: auto;
-    border-radius: 12px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+    width: 100%; max-width: 320px; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
 }
 
 .blog-lead { font-size: 1.25rem; border-left: 3px solid var(--active-color); padding-left: 1.5rem; }
 .blog-text { width: 100%; font-size: 1.2rem; line-height: 1.9; margin-top: 2rem; text-align: left; }
 
-@media (max-width: 800px) {
-    .blog-header-split { flex-direction: column-reverse; text-align: center; }
-    .header-text-side { text-align: center; }
-    .header-image-side { justify-content: center; }
-    .blog-lead { border-left: none; border-top: 3px solid var(--active-color); padding-top: 1rem; padding-left: 0; }
-}
-
 /* RESET FOR ADMIN CONTENT */
 .custom-content img {
-    width: auto; /* Overrides the 100% width rule */
+    width: auto !important; 
     max-width: 100%; 
     height: auto;
-    display: inline-block; /* Allows images to sit side-by-side */
+    display: inline-block; 
     margin: 10px 0;
 }
