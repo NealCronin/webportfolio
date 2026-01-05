@@ -1,0 +1,28 @@
+name: Deploy to PythonAnywhere
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy and Reload via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ssh.pythonanywhere.com
+          username: ${{ secrets.PA_USERNAME }}
+          password: ${{ secrets.YOUR_PA_PASSWORD_SECRET_NAME }} 
+          script: |
+            cd /home/${{ secrets.PA_USERNAME }}/webportfolio
+            git fetch origin main
+            git reset --hard origin/main
+            source /home/${{ secrets.PA_USERNAME }}/.virtualenvs/webportfolio/bin/activate
+            python manage.py migrate
+            python manage.py collectstatic --noinput
+            touch /var/www/${{ secrets.PA_DOMAIN }}_wsgi.py
