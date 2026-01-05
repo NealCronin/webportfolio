@@ -94,6 +94,7 @@ nav {
 }
 
 .theme-btn {
+    text-decoration: none;
     background: transparent;
     border: 1px solid var(--nav-link-color);
     color: var(--nav-link-color);
@@ -344,7 +345,7 @@ nav {
     }
 
     .nav-logo a { font-size: 1.1rem; white-space: nowrap; }
-    .theme-btn { padding: 4px 8px; font-size: 0.7rem; }
+    .theme-btn { padding: 4px 8px; font-size: 0.7rem; align-self: center; }
     .nav-links { gap: 0.6rem; }
     .nav-links a { font-size: 0.8rem; }
 
