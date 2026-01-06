@@ -376,10 +376,10 @@ nav {
 body.dark-mode .gallery-item img, body.dark-mode .gallery-item video { background: transparent; }
 
 /* ==========================================================================
-   9. PROJECT GITHUB BUTTON
+   9. PROJECT GITHUB BUTTON (Standardized Size)
    ========================================================================== */
 .github-btn-wrapper {
-    margin: 2.5rem 0; /* Balanced margin for body text */
+    margin: 2rem 0;
     display: flex;
     justify-content: flex-start;
 }
@@ -389,13 +389,11 @@ body.dark-mode .gallery-item img, body.dark-mode .gallery-item video { backgroun
     color: var(--nav-link-color);
     font-weight: 500;
     font-size: 0.85rem;
-    padding: 8px 20px; /* Exact match to nav and project-detail utility buttons */
+    padding: 8px 20px;
     border-radius: 50px;
     border: 1px solid var(--nav-link-color);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    display: inline-block;
+    text-align: center;
     background: transparent;
     cursor: pointer;
     transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
@@ -408,12 +406,13 @@ body.dark-mode .gallery-item img, body.dark-mode .gallery-item video { backgroun
     border-color: var(--heading-color);
     background: rgba(128, 128, 128, 0.1);
 }
-/* Mobile Uniformity - matches navigation pill sizes */
+
+/* Mobile Uniformity */
 @media (max-width: 650px) {
     .github-btn-wrapper { justify-content: center; }
     .github-btn {
         width: 100%;
-        padding: 12px 0;
+        padding: 6px 12px;
         font-size: 0.75rem;
     }
 }
