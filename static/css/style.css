@@ -376,7 +376,7 @@ nav {
 body.dark-mode .gallery-item img, body.dark-mode .gallery-item video { background: transparent; }
 
 /* ==========================================================================
-   9. PROJECT GITHUB BUTTON (Matched Size)
+   9. PROJECT GITHUB BUTTON (Perfect Match)
    ========================================================================== */
 .github-btn-wrapper {
     margin: 2rem 0;
@@ -389,12 +389,10 @@ body.dark-mode .gallery-item img, body.dark-mode .gallery-item video { backgroun
     color: var(--nav-link-color);
     font-weight: 500;
     font-size: 0.85rem;
-    padding: 8px 0;
+    padding: 8px 20px; 
     
-    width: 200px;
     display: inline-block;
     text-align: center;
-    
     border-radius: 50px;
     border: 1px solid var(--nav-link-color);
     background: transparent;
