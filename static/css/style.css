@@ -12,6 +12,7 @@
     --card-bg: #ffffff; 
     --card-border: rgba(0, 0, 0, 0.08);
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --transition-speed: 0.5s ease;
 }
 
 body.dark-mode {
@@ -37,7 +38,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-color);
     min-height: 100vh;
-    transition: color 0.3s ease, background-color 0.5s ease;
+    transition: color var(--transition-speed), background-color var(--transition-speed);
 }
 
 .container { padding: 2rem 5%; }
@@ -73,7 +74,7 @@ nav {
     z-index: 1000;
     background-color: var(--bg-color);
     border-bottom: 1px solid var(--nav-border);
-    transition: background-color 0.5s ease, border-color 0.5s ease;
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
 }
 
 .nav-logo, .nav-links, .nav-center { flex: 1; }
@@ -83,7 +84,7 @@ nav {
     font-weight: bold;
     text-decoration: none;
     color: var(--heading-color);
-    transition: color 0.3s ease;
+    transition: color var(--transition-speed);
 }
 
 .nav-center { display: flex; justify-content: center; }
@@ -98,6 +99,8 @@ nav {
     padding: 0;
 }
 
+.nav-links li { display: flex; align-items: center; }
+
 .nav-links a, .theme-btn {
     text-decoration: none;
     color: var(--nav-link-color);
@@ -106,10 +109,13 @@ nav {
     padding: 8px 20px;
     border-radius: 50px;
     border: 1px solid var(--nav-link-color);
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: transparent;
     cursor: pointer;
     transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
 }
 
 .nav-links a:hover, .theme-btn:hover {
@@ -272,34 +278,36 @@ nav {
     .project-masonry { grid-template-columns: 1fr; }
     
     nav { 
-        padding: 0.8rem 3%; 
-        flex-direction: column;
-        gap: 1rem;
+        padding: 1rem 3%; 
+        flex-direction: column; 
+        gap: 1.2rem;
     }
 
     .nav-links {
-        width: 100%;
+        width: 100%; 
         display: flex;
-        justify-content: space-between; 
-        gap: 8px;
+        justify-content: center; 
+        gap: 8px; 
     }
 
     .nav-links li {
-        flex: 1;
+        flex: 1; 
         display: flex;
     }
 
     .nav-links a, .theme-btn {
-        width: 100%;
-        padding: 10px 0;
+        width: 100%; 
+        padding: 12px 0; /* Identical clearance for all buttons */
         font-size: 0.75rem;
         text-align: center;
-        white-space: nowrap;
+        white-space: nowrap; 
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 50px;
     }
 
+    .nav-links a, .theme-btn { padding: 6px 12px; font-size: 0.75rem; }
     .about-photo img { max-width: 90%; }
     .about-cta { flex-direction: column; align-items: center; width: 100%; }
 }
