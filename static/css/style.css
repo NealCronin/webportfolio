@@ -375,31 +375,6 @@ nav {
 
 body.dark-mode .gallery-item img, body.dark-mode .gallery-item video { background: transparent; }
 
-/* Gallery Caption Logic */
-.gallery-caption {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--nav-link-color);
-    margin-bottom: 10px;
-    opacity: 0; /* Hidden by default */
-    transition: opacity 0.3s ease;
-    font-style: italic;
-}
-
-/* Only show caption on desktop when hovering over the gallery container */
-@media (hover: hover) {
-    .project-gallery:hover .gallery-caption {
-        opacity: 0.8;
-    }
-}
-
-/* Ensure the caption doesn't show up at all on mobile */
-@media (max-width: 900px) {
-    .gallery-caption {
-        display: none !important;
-    }
-}
-
 /* ==========================================================================
    9. PROJECT GITHUB BUTTON
    ========================================================================== */
