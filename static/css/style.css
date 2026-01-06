@@ -374,3 +374,35 @@ nav {
 }
 
 body.dark-mode .gallery-item img, body.dark-mode .gallery-item video { background: transparent; }
+
+/* ==========================================================================
+   9. PROJECT GITHUB BUTTON
+   ========================================================================== */
+.github-btn-wrapper {
+    margin: 3rem 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    background: transparent;
+    color: var(--nav-link-color);
+    border: 1px solid var(--nav-link-color);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.github-btn:hover {
+    color: var(--heading-color);
+    border-color: var(--heading-color);
+    background: rgba(128, 128, 128, 0.1);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
