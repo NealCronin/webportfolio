@@ -162,7 +162,7 @@ nav {
     align-items: center;
     text-decoration: none;
     box-shadow: var(--shadow); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, border-color 0.5s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.5s ease, border-color 0.5s ease;
 }
 
 .card-image-wrapper {
@@ -205,12 +205,14 @@ nav {
     line-height: 1.4;
 }
 
-@media (min-width: 901px) {
-    .project-card:hover { 
-        box-shadow: var(--shadow-hover); 
-        transform: scale(1.02);
-    }
-    .card-image-wrapper:hover .card-overlay { opacity: 1; }
+/* Desktop Only: Hover logic without scrolling interference */
+.project-card:hover { 
+    box-shadow: var(--shadow-hover); 
+    transform: scale(1.02);
+}
+
+.card-image-wrapper:hover .card-overlay { 
+    opacity: 1; 
 }
 
 /* ==========================================================================
@@ -432,6 +434,16 @@ body.dark-mode .gallery-item video {
     .header-text-side { text-align: center; }
     .header-image-side { justify-content: center; width: 100%; }
     .header-image-side img { max-width: 280px; margin: 0 auto; }
+
+    /* MOBILE ONLY SCROLL FOCUS: Triggers ONLY on mobile via JS class */
+    .project-card.is-focused { 
+        box-shadow: var(--shadow-hover); 
+        transform: scale(1.02);
+    }
+
+    .project-card.is-focused .card-overlay { 
+        opacity: 1; 
+    }
 }
 
 @media (max-width: 650px) {

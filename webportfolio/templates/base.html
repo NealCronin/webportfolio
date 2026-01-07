@@ -97,13 +97,15 @@
         /* Intersection Observer for mobile scroll-focus effect */
         const observerOptions = {
             root: null, 
-            rootMargin: '-20% 0px -20% 0px', 
-            threshold: 0.7 
+            /* This creates a trigger zone in the middle of the screen */
+            rootMargin: '-30% 0px -30% 0px', 
+            threshold: 0.5 
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    /* Adds class to trigger CSS zoom/overlay */
                     entry.target.classList.add('is-focused');
                 } else {
                     entry.target.classList.remove('is-focused');
@@ -111,21 +113,9 @@
             });
         }, observerOptions);
 
-        // Observe all project cards for focus animations
+        // Observe all project cards
         document.querySelectorAll('.project-card').forEach(card => {
             observer.observe(card);
-        });
-    </script>
-
-    <script>
-        /* Prevents the blue flash by fading out the PDF frame before navigation */
-        document.querySelectorAll('.nav-links a, .nav-logo a').forEach(link => {
-            link.addEventListener('click', function() {
-                const frame = document.querySelector('.resume-frame');
-                if (frame) {
-                    frame.classList.add('fade-out');
-                }
-            });
         });
     </script>
 </body>
