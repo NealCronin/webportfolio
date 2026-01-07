@@ -8,14 +8,11 @@ from pages.models import GalleryImage, GalleryVideo
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    # Removed 'list_preview'
     list_display = ('title', 'image_slug', 'order', 'is_visible')
     list_editable = ('order', 'is_visible')
     
-    # Removed 'body_preview'
     readonly_fields = ('gallery_link', 'video_gallery_link')
     
-    # Cleaned up fields to remove preview references
     fields = (
         'is_visible', 
         'title',
@@ -36,7 +33,6 @@ class ProjectAdmin(admin.ModelAdmin):
         },
     }
 
-    # Helper: Opens the Image Gallery
     def gallery_link(self, obj):
         url = reverse('admin:pages_galleryimage_changelist')
         return format_html(
@@ -46,7 +42,6 @@ class ProjectAdmin(admin.ModelAdmin):
         )
     gallery_link.short_description = "Image Library"
 
-    # Helper: Opens the Video Gallery
     def video_gallery_link(self, obj):
         url = reverse('admin:pages_galleryvideo_changelist')
         return format_html(
@@ -56,7 +51,6 @@ class ProjectAdmin(admin.ModelAdmin):
         )
     video_gallery_link.short_description = "Video Library"
 
-    # Helper: Dynamic Help Text
     def render_change_form(self, request, context, *args, **kwargs):
         context['adminform'].form.fields['image_slug'].help_text = "Lookup slug in Image Gallery."
         return super().render_change_form(request, context, *args, **kwargs)

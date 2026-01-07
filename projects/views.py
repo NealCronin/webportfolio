@@ -9,7 +9,6 @@ def project_list(request):
     """
     projects = Project.objects.filter(is_visible=True).order_by('order')
     
-    # Resolve thumbnails for the list view
     for project in projects:
         try:
             if project.image_slug:
@@ -23,17 +22,12 @@ def project_list(request):
     return render(request, 'projects/project_list.html', {'projects': projects})
 
 def project_detail(request, slug):
-    """
-    Renders a single project and replaces [[video:slug]] and [[image:slug]] 
-    with real Cloudinary URLs.
-    """
     project = get_object_or_404(Project, slug=slug)
     content = project.body if project.body else ""
 
     header_image = GalleryImage.objects.filter(slug=project.image_slug).first()
     header_image_url = header_image.image.url if header_image else None
 
-    # 1. PROCESS VIDEOS
     video_matches = re.findall(r'\[\[video:(.*?)\]\]', content)
     for v_slug in video_matches:
         original_tag = f"[[video:{v_slug}]]"
@@ -44,7 +38,6 @@ def project_detail(request, slug):
         except GalleryVideo.DoesNotExist:
             content = content.replace(original_tag, "#video-not-found")
 
-    # 2. PROCESS IMAGES
     image_matches = re.findall(r'\[\[image:(.*?)\]\]', content)
     for i_slug in image_matches:
         original_tag = f"[[image:{i_slug}]]"
@@ -57,6 +50,6 @@ def project_detail(request, slug):
 
     return render(request, 'projects/project_detail.html', {
         'project': project,
-        'processed_body': content, # Ensure template uses {{ processed_body|safe }}
+        'processed_body': content,
         'header_image_url': header_image_url,
     })

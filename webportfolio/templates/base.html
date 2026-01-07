@@ -13,7 +13,6 @@
     
     <style>
         :root {
-            /* Light Mode Variables from SiteSettings */
             --active-color: {{ L_ACCENT }};
             --bg-color: {{ L_BG }};
             --text-color: {{ L_TEXT }};
@@ -21,14 +20,12 @@
         }
 
         body.dark-mode {
-            /* Dark Mode Variables from SiteSettings */
             --active-color: {{ D_ACCENT }};
             --bg-color: {{ D_BG }};
             --text-color: {{ D_TEXT }};
             --nav-bg: {{ D_NAV }};
         }
 
-        /* Apply dynamic colors to base elements */
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -38,7 +35,6 @@
             background-color: var(--nav-bg);
         }
 
-        /* Spacing for bio paragraphs rendered via the linebreaks filter */
         .bio-content p {
             margin-bottom: 1.5rem;
             line-height: 1.8;
@@ -62,11 +58,19 @@
         {% block content %}{% endblock %}
     </main>
 
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Template by Neal Cronin</p>
+            <a href="https://github.com/NealCronin/webportfolio" target="_blank" class="footer-github-link">
+                View on GitHub
+            </a>
+        </div>
+    </footer>
+
     <script>
         const btn = document.getElementById('theme-toggle');
         const body = document.getElementById('theme-body');
 
-        // Restored original toggle text behavior
         const updateBtnText = (theme) => {
             if (theme === 'dark') {
                 btn.textContent = 'Light Mode';
@@ -75,7 +79,6 @@
             }
         };
 
-        // Initialize theme from local storage
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'dark') {
             body.classList.add('dark-mode');
@@ -94,10 +97,8 @@
     </script>
 
     <script>
-        /* Intersection Observer for mobile scroll-focus effect */
         const observerOptions = {
             root: null, 
-            /* This creates a trigger zone in the middle of the screen */
             rootMargin: '-30% 0px -30% 0px', 
             threshold: 0.5 
         };
@@ -105,7 +106,6 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    /* Adds class to trigger CSS zoom/overlay */
                     entry.target.classList.add('is-focused');
                 } else {
                     entry.target.classList.remove('is-focused');
@@ -113,7 +113,6 @@
             });
         }, observerOptions);
 
-        // Observe all project cards
         document.querySelectorAll('.project-card').forEach(card => {
             observer.observe(card);
         });

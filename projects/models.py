@@ -11,7 +11,7 @@ class Project(models.Model):
         max_length=100,
         default='work-in-progress'
     )
-    # video_slug has been removed from here
+
     body = models.TextField(blank=True, null=True)
 
     class Meta:

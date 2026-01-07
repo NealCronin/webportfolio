@@ -11,7 +11,6 @@
     --nav-border: rgba(0, 0, 0, 0.1);
     --card-bg: #ffffff; 
     --card-border: rgba(0, 0, 0, 0.08);
-    /* INCREASED: Deeper, more visible shadow for Light Mode */
     --shadow: 0 12px 40px rgba(0, 0, 0, 0.15); 
     --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.22);
     --transition-speed: 0.5s ease;
@@ -27,7 +26,6 @@ body.dark-mode {
     --nav-border: rgba(255, 255, 255, 0.1);
     --card-bg: #1e1e1e; 
     --card-border: rgba(255, 255, 255, 0.1);
-    /* INCREASED: Stronger shadow contrast for Dark Mode */
     --shadow: 0 15px 45px rgba(0, 0, 0, 0.6); 
     --shadow-hover: 0 25px 60px rgba(0, 0, 0, 0.8);
 }
@@ -205,7 +203,6 @@ nav {
     line-height: 1.4;
 }
 
-/* Desktop Only: Hover logic without scrolling interference */
 .project-card:hover { 
     box-shadow: var(--shadow-hover); 
     transform: scale(1.02);
@@ -322,7 +319,6 @@ nav {
         z-index: 20; 
         transform: scale(1.6);
     }
-    /* Updated to include video hover shadow */
     .gallery-item:hover img, .gallery-item:hover video {
         box-shadow: var(--shadow-hover);
     }
@@ -350,15 +346,14 @@ body.dark-mode .gallery-item video {
     justify-content: flex-start;
 }
 
-/* Force both buttons to be mathematically identical on desktop */
 .github-btn, 
 .blog-footer .theme-btn {
     text-decoration: none;
     color: var(--nav-link-color);
     font-weight: 500;
     font-size: 0.9rem;      
-    height: 45px;            /* Fixed height to prevent vertical mismatch */
-    width: 220px;            /* Fixed width for perfect desktop symmetry */
+    height: 45px;            
+    width: 220px;            
     border-radius: 50px;
     border: 1px solid var(--nav-link-color);
     display: inline-flex;
@@ -435,7 +430,6 @@ body.dark-mode .gallery-item video {
     .header-image-side { justify-content: center; width: 100%; }
     .header-image-side img { max-width: 280px; margin: 0 auto; }
 
-    /* MOBILE ONLY SCROLL FOCUS: Triggers ONLY on mobile via JS class */
     .project-card.is-focused { 
         box-shadow: var(--shadow-hover); 
         transform: scale(1.02);
@@ -449,11 +443,10 @@ body.dark-mode .gallery-item video {
 @media (max-width: 650px) {
     .project-masonry { grid-template-columns: 1fr; }
     
-    /* Overriding fixed width for mobile screens */
     .github-btn, 
     .blog-footer .theme-btn {
         width: 100% !important; 
-        height: 50px;        /* Slightly taller for easier thumb-tapping */
+        height: 50px;        
         font-size: 1rem;     
     }
     
@@ -485,4 +478,60 @@ body.dark-mode .gallery-item video {
     transform: scale(1.6);
     box-shadow: var(--shadow-hover);
     z-index: 20;
+}
+
+/* ==========================================================================
+   12. FOOTER STYLES
+   ========================================================================== */
+.site-footer {
+    padding: 3rem 5%;
+    background-color: var(--bg-color);
+    border-top: 1px solid var(--nav-border);
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--nav-link-color);
+}
+
+.footer-github-link {
+    text-decoration: none;
+    color: var(--nav-link-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid var(--nav-link-color);
+    transition: all 0.3s ease;
+}
+
+.footer-github-link:hover {
+    color: var(--heading-color);
+    border-color: var(--heading-color);
+    background: rgba(128, 128, 128, 0.1);
+}
+
+/* Responsive Footer */
+@media (max-width: 650px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+    
+    .footer-github-link {
+        width: 100%;
+        box-sizing: border-box;
+        display: inline-block;
+    }
 }
