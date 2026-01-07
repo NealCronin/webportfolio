@@ -3,16 +3,21 @@
 {% block content %}
 <div style="padding-bottom: 300px;">
     <header class="home-header">
-        <h1>i make things sometimes</h1>
+        <h1>{{ HOME_TITLE }}</h1>
     </header>
 
     <section id="projects">
         <div class="project-masonry">
             {% for project in projects %}
-                <a href="{% url 'project_detail' project.pk %}" class="project-card-link">
+                <a href="{% url 'project_detail' project.slug %}" class="project-card-link">
                     <div class="project-card">
                         <div class="card-image-wrapper">
-                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                            {% if project.thumbnail_url %}
+                                <img src="{{ project.thumbnail_url }}" alt="{{ project.title }}" loading="lazy">
+                            {% elif WIP_IMAGE %}
+                                <img src="{{ WIP_IMAGE }}" alt="Work in Progress" loading="lazy">
+                            {% endif %}
+                            
                             <div class="card-overlay">
                                 <div class="overlay-content">
                                     <p>{{ project.flavor_text }}</p> 
@@ -25,6 +30,5 @@
             {% endfor %}
         </div>
     </section>
-
-    </div>
+</div>
 {% endblock %}

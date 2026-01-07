@@ -4,87 +4,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neal Cronin | Portfolio</title>
-    <meta property="og:image" content="https://res.cloudinary.com/dmo5atv6g/image/upload/v1767599138/IMG_8958_itluci.jpg">
-    <meta property="og:title" content="Neal Cronin | Portfolio">
+    <title>{{ SITE_NAME }} | Portfolio</title>
+    <meta property="og:image" content="{{ PROFILE_PIC }}">
+    <meta property="og:title" content="{{ SITE_NAME }} | Portfolio">
     <meta property="og:description" content="A showcase of my projects and skills.">
 
-    <style>
-        nav a, .nav-links a { color: var(--text-color, #444); text-decoration: none; }
-    </style>
-
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <style>
+        :root {
+            /* Light Mode Variables from SiteSettings */
+            --active-color: {{ L_ACCENT }};
+            --bg-color: {{ L_BG }};
+            --text-color: {{ L_TEXT }};
+            --nav-bg: {{ L_NAV }};
+        }
+
+        body.dark-mode {
+            /* Dark Mode Variables from SiteSettings */
+            --active-color: {{ D_ACCENT }};
+            --bg-color: {{ D_BG }};
+            --text-color: {{ D_TEXT }};
+            --nav-bg: {{ D_NAV }};
+        }
+
+        /* Apply dynamic colors to base elements */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        nav {
+            background-color: var(--nav-bg);
+        }
+
+        /* Spacing for bio paragraphs rendered via the linebreaks filter */
+        .bio-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+    </style>
 </head>
 <body id="theme-body">
-
     <nav>
         <div class="nav-logo">
-            <a href="/">Neal Cronin</a>
+            <a href="/">{{ NAV_TITLE }}</a>
         </div>
-
-        <div class="nav-center">
-            <button id="theme-toggle" class="theme-btn">Dark Mode</button>
-        </div>
-
         <ul class="nav-links">
             <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Projects</a></li>
             <li><a href="{% url 'about' %}" class="{% if request.path == '/about/' %}active{% endif %}">Me</a></li>
             <li><a href="{% url 'resume' %}" class="btn-resume {% if request.path == '/resume/' %}active{% endif %}">Resume</a></li>
+            <li><button id="theme-toggle" class="theme-btn">Dark Mode</button></li>
         </ul>
     </nav>
 
     <main class="container">
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
 
     <script>
         const btn = document.getElementById('theme-toggle');
         const body = document.getElementById('theme-body');
 
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            body.classList.add('dark-mode');
-            btn.textContent = 'Light Mode';
-        } else {
-            body.classList.remove('dark-mode');
-            btn.textContent = 'Dark Mode';
-        }
-
-        btn.addEventListener('click', function() {
-            body.classList.toggle('dark-mode');
-            let theme = 'light';
-            if (body.classList.contains('dark-mode')) {
-                theme = 'dark';
+        // Restored original toggle text behavior
+        const updateBtnText = (theme) => {
+            if (theme === 'dark') {
                 btn.textContent = 'Light Mode';
             } else {
                 btn.textContent = 'Dark Mode';
             }
+        };
+
+        // Initialize theme from local storage
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            updateBtnText('dark');
+        } else {
+            body.classList.remove('dark-mode');
+            updateBtnText('light');
+        }
+
+        btn.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            let theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            updateBtnText(theme);
             localStorage.setItem('theme', theme);
         });
     </script>
+
     <script>
-    // Create the observer
-    const observerOptions = {
-        root: null, // use the viewport
-        rootMargin: '-20% 0px -20% 0px', // trigger when card is in the middle 60% of screen
-        threshold: 0.7 // card must be 70% visible to trigger
-    };
+        /* Intersection Observer for mobile scroll-focus effect */
+        const observerOptions = {
+            root: null, 
+            rootMargin: '-20% 0px -20% 0px', 
+            threshold: 0.7 
+        };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-focused');
-            } else {
-                entry.target.classList.remove('is-focused');
-            }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-focused');
+                } else {
+                    entry.target.classList.remove('is-focused');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all project cards for focus animations
+        document.querySelectorAll('.project-card').forEach(card => {
+            observer.observe(card);
         });
-    }, observerOptions);
+    </script>
 
-    // Target all project cards
-    document.querySelectorAll('.project-card').forEach(card => {
-        observer.observe(card);
-    });
-</script>
+    <script>
+        /* Prevents the blue flash by fading out the PDF frame before navigation */
+        document.querySelectorAll('.nav-links a, .nav-logo a').forEach(link => {
+            link.addEventListener('click', function() {
+                const frame = document.querySelector('.resume-frame');
+                if (frame) {
+                    frame.classList.add('fade-out');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

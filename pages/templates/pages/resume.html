@@ -3,17 +3,26 @@
 
 {% block content %}
 <div class="resume-container">
-    <div class="resume-download-bar">
-        <a href="{% static 'docs/Cronin_Neal.pdf' %}" class="theme-btn" download>
-            Quick Download
-        </a>
-    </div>
+    {% if site_settings.resume_filename %}
+        <div class="resume-download-bar">
+            <a href="{% static 'docs/' %}{{ site_settings.resume_filename }}.pdf" class="theme-btn" download>
+                Quick Download
+            </a>
+        </div>
 
-    <div class="resume-frame">
-        <embed 
-            src="{% static 'docs/Cronin_Neal.pdf' %}" 
-            type="application/pdf"
-        />
-    </div>
+        <div class="resume-frame">
+            <embed 
+                src="{% static 'docs/' %}{{ site_settings.resume_filename }}.pdf" 
+                type="application/pdf"
+                width="100%"
+                height="100%"
+            />
+        </div>
+    {% else %}
+        <div class="home-header">
+            <h1>Resume Not Configured</h1>
+            <p>Please enter a filename in the Site Settings admin.</p>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
